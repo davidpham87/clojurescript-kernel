@@ -1,7 +1,7 @@
 // Copyright (c) JupyterLite Contributors
 // Distributed under the terms of the Modified BSD License.
 
-import * as scittle from 'scittle';
+import * as scittle from 'scittle/dist/scittle';
 
 import type { KernelMessage } from '@jupyterlab/services';
 
@@ -52,14 +52,14 @@ export class ClojureScriptKernel extends BaseKernel {
   ): Promise<KernelMessage.IExecuteReplyMsg['content']> {
     const { code } = content;
 
-   this.publishExecuteResult({
+    this.publishExecuteResult({
       execution_count: this.executionCount,
       data: {
         'text/plain': scittle.core.eval_string(code)
       },
       metadata: {}
-    });  
-    
+    });
+
     return {
       status: 'ok',
       execution_count: this.executionCount,

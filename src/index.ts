@@ -10,7 +10,7 @@ import type { IKernel } from '@jupyterlite/services';
 
 import { IKernelSpecs } from '@jupyterlite/services';
 
-import { EchoKernel } from './kernel';
+import { ClojureScriptKernel as EchoKernel } from './kernel';
 
 /**
  * A plugin to register the echo kernel.
