@@ -1,6 +1,8 @@
 // Copyright (c) JupyterLite Contributors
 // Distributed under the terms of the Modified BSD License.
 
+import * as scittle from 'scittle';
+
 import type { KernelMessage } from '@jupyterlab/services';
 
 import { BaseKernel } from '@jupyterlite/services';
@@ -8,7 +10,7 @@ import { BaseKernel } from '@jupyterlite/services';
 /**
  * A kernel that echos content back.
  */
-export class EchoKernel extends BaseKernel {
+export class ClojureScriptKernel extends BaseKernel {
   /**
    * Handle a kernel_info_request message
    */
@@ -20,8 +22,8 @@ export class EchoKernel extends BaseKernel {
         codemirror_mode: {
           name: 'text/plain'
         },
-        file_extension: '.txt',
-        mimetype: 'text/plain',
+        file_extension: '.cljs',
+        mimetype: 'text/x-clojure',
         name: 'echo',
         nbconvert_exporter: 'text',
         pygments_lexer: 'text',
@@ -29,11 +31,11 @@ export class EchoKernel extends BaseKernel {
       },
       protocol_version: '5.3',
       status: 'ok',
-      banner: 'An echo kernel running in the browser',
+      banner: 'A ClojureScript kernel running in the browser',
       help_links: [
         {
-          text: 'Echo Kernel',
-          url: 'https://github.com/jupyterlite/echo-kernel'
+          text: 'ClojureScript Kernel',
+          url: 'https://github.com/jupyterlite/clojurescript-kernel'
         }
       ]
     };
@@ -50,14 +52,14 @@ export class EchoKernel extends BaseKernel {
   ): Promise<KernelMessage.IExecuteReplyMsg['content']> {
     const { code } = content;
 
-    this.publishExecuteResult({
+   this.publishExecuteResult({
       execution_count: this.executionCount,
       data: {
-        'text/plain': code
+        'text/plain': scittle.core.eval_string(code)
       },
       metadata: {}
-    });
-
+    });  
+    
     return {
       status: 'ok',
       execution_count: this.executionCount,
