@@ -22,8 +22,8 @@ export class ClojureScriptKernel extends BaseKernel {
         codemirror_mode: {
           name: 'text/plain'
         },
-        file_extension: '.txt',
-        mimetype: 'text/plain',
+        file_extension: '.cljs',
+        mimetype: 'text/x-clojure',
         name: 'echo',
         nbconvert_exporter: 'text',
         pygments_lexer: 'text',
@@ -52,8 +52,14 @@ export class ClojureScriptKernel extends BaseKernel {
   ): Promise<KernelMessage.IExecuteReplyMsg['content']> {
     const { code } = content;
 
-    scittle.core.eval_string(code);
-
+   this.publishExecuteResult({
+      execution_count: this.executionCount,
+      data: {
+        'text/plain': scittle.core.eval_string(code)
+      },
+      metadata: {}
+    });  
+    
     return {
       status: 'ok',
       execution_count: this.executionCount,
