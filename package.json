@@ -1,15 +1,15 @@
 {
-    "name": "@jupyterlite/echo-kernel",
+    "name": "@jupyterlite/clojurescript-kernel",
     "version": "0.4.0",
-    "description": "Echo kernel for JupyterLite",
+    "description": "Clojurescript kernel for JupyterLite",
     "keywords": [
         "jupyter",
         "jupyterlab",
         "jupyterlab-extension"
     ],
-    "homepage": "https://github.com/jupyterlite/echo-kernel",
+    "homepage": "https://github.com/jupyterlite/clojurescript-kernel",
     "bugs": {
-        "url": "https://github.com/jupyterlite/echo-kernel/issues"
+        "url": "https://github.com/jupyterlite/clojurescript-kernel/issues"
     },
     "license": "BSD-3-Clause",
     "author": "JupyterLite Contributors",
@@ -23,7 +23,7 @@
     "style": "style/index.css",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jupyterlite/echo-kernel.git"
+        "url": "https://github.com/jupyterlite/clojurescript-kernel.git"
     },
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -35,17 +35,17 @@
         "clean": "jlpm clean:lib",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-        "clean:labextension": "rimraf jupyterlite_echo_kernel/labextension jupyterlite_echo_kernel/_version.py",
+        "clean:labextension": "rimraf jupyterlite_clojurescript_kernel/labextension jupyterlite_clojurescript_kernel/_version.py",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
-        "eslint": "jlpm eslint:check --fix",
+        "eslint": "npm run eslint:check -- --fix",
         "eslint:check": "eslint . --cache --ext .ts,.tsx",
-        "install:extension": "jlpm build",
-        "lint": "jlpm stylelint && jlpm prettier && jlpm eslint",
-        "lint:check": "jlpm stylelint:check && jlpm prettier:check && jlpm eslint:check",
-        "prettier": "jlpm prettier:base --write --list-different",
+        "install:extension": "npm run build",
+        "lint": "npm run stylelint && npm run prettier && npm run eslint",
+        "lint:check": "npm run stylelint:check && npm run prettier:check && npm run eslint:check",
+        "prettier": "npm run prettier:base -- --write --list-different",
         "prettier:base": "prettier \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
-        "prettier:check": "jlpm prettier:base --check",
-        "stylelint": "jlpm stylelint:check --fix",
+        "prettier:check": "npm run prettier:base -- --check",
+        "stylelint": "npm run stylelint:check -- --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
         "watch": "run-p watch:src watch:labextension",
         "watch:src": "tsc -w --sourceMap",
@@ -53,7 +53,8 @@
     },
     "dependencies": {
         "@jupyterlab/application": "^4.5.0",
-        "@jupyterlite/services": "^0.7.0"
+        "@jupyterlite/services": "^0.7.0",
+        "scittle": "^0.7.27"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.5.0",
@@ -89,7 +90,7 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlite_echo_kernel/labextension",
+        "outputDir": "jupyterlite_clojurescript_kernel/labextension",
         "sharedPackages": {
             "@jupyterlite/services": {
                 "bundled": false,
